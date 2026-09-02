@@ -74,7 +74,8 @@ create table bookings (
   client_id uuid not null references users(id) on delete cascade,
   message text,
   status booking_status not null default 'requested',
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  unique (gig_id, client_id)
 );
 
 create index on jobs (category, status);

@@ -57,25 +57,17 @@ export async function requestBooking(gigId: string, formData: FormData) {
     throw new Error("Not authorized");
   }
 
-  const { data: existing } = await supabaseAdmin
-    .from("bookings")
-    .select("id")
-    .eq("gig_id", gigId)
-    .eq("client_id", session.user.id)
-    .maybeSingle();
+  const message = String(formData.get("message") ?? "").trim() || null;
 
-  if (!existing) {
-    const message = String(formData.get("message") ?? "").trim() || null;
+  const { error } = await supabaseAdmin.from("bookings").insert({
+    gig_id: gigId,
+    client_id: session.user.id,
+    message,
+    status: "requested",
+  });
 
-    const { error } = await supabaseAdmin.from("bookings").insert({
-      gig_id: gigId,
-      client_id: session.user.id,
-      message,
-      status: "requested",
-    });
-
-    if (error) throw new Error(error.message);
-  }
+  // unique_violation on (gig_id, client_id) — already requested, ignore.
+  if (error && error.code !== "23505") throw new Error(error.message);
 
   revalidatePath(`/gigs/${gigId}`);
 }
