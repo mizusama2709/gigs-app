@@ -11,7 +11,7 @@ export default async function FreelancerProfilePage({
 
   const { data: profile } = await supabase
     .from("freelancer_profiles")
-    .select("user_id, bio, categories, location, portfolio_links, avatar_url, users(name)")
+    .select("user_id, bio, categories, location, portfolio_links, avatar_url, users(name, email)")
     .eq("user_id", id)
     .single();
 
@@ -19,6 +19,7 @@ export default async function FreelancerProfilePage({
 
   const user = Array.isArray(profile.users) ? profile.users[0] : profile.users;
   const name = user?.name ?? "Freelancer";
+  const email = user?.email;
 
   return (
     <main className="max-w-md mx-auto p-4">
@@ -74,7 +75,7 @@ export default async function FreelancerProfilePage({
       )}
 
       <a
-        href={`mailto:?subject=Booking inquiry for ${name}`}
+        href={`mailto:${email ?? ""}?subject=Booking inquiry for ${name}`}
         className="mt-6 block text-center border rounded-lg min-h-[44px] flex items-center justify-center"
       >
         Contact
