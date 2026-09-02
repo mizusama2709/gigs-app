@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { firstOf } from "@/lib/format";
 
 export default async function FreelancerProfilePage({
   params,
@@ -17,7 +18,7 @@ export default async function FreelancerProfilePage({
 
   if (!profile) notFound();
 
-  const user = Array.isArray(profile.users) ? profile.users[0] : profile.users;
+  const user = firstOf(profile.users);
   const name = user?.name ?? "Freelancer";
   const email = user?.email;
 

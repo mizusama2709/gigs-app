@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { CATEGORIES } from "@/lib/categories";
+import { budgetLabel } from "@/lib/format";
 
 type JobRow = {
   id: string;
@@ -10,13 +11,6 @@ type JobRow = {
   budget_max: number | null;
   timeline: string | null;
 };
-
-function budgetLabel(job: JobRow) {
-  if (job.budget_min && job.budget_max) return `₹${job.budget_min} - ₹${job.budget_max}`;
-  if (job.budget_min) return `From ₹${job.budget_min}`;
-  if (job.budget_max) return `Up to ₹${job.budget_max}`;
-  return null;
-}
 
 export default async function JobsPage({
   searchParams,

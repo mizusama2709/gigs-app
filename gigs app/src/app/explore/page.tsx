@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { CATEGORIES } from "@/lib/categories";
+import { firstOf } from "@/lib/format";
 
 type FreelancerRow = {
   user_id: string;
@@ -13,9 +14,7 @@ type FreelancerRow = {
 };
 
 function nameOf(row: FreelancerRow) {
-  const u = row.users;
-  if (!u) return "Freelancer";
-  return Array.isArray(u) ? u[0]?.name ?? "Freelancer" : u.name;
+  return firstOf(row.users)?.name ?? "Freelancer";
 }
 
 export default async function ExplorePage({

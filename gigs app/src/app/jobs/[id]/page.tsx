@@ -1,14 +1,8 @@
 import { notFound } from "next/navigation";
 import { auth } from "@/auth";
 import { supabase, supabaseAdmin } from "@/lib/supabase";
+import { budgetLabel, firstOf } from "@/lib/format";
 import { applyToJob, setApplicationStatus } from "./actions";
-
-function budgetLabel(job: { budget_min: number | null; budget_max: number | null }) {
-  if (job.budget_min && job.budget_max) return `₹${job.budget_min} - ₹${job.budget_max}`;
-  if (job.budget_min) return `From ₹${job.budget_min}`;
-  if (job.budget_max) return `Up to ₹${job.budget_max}`;
-  return null;
-}
 
 export default async function JobDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -84,7 +78,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
           <h2 className="font-medium mb-3">Applicants</h2>
           <div className="flex flex-col gap-3">
             {applicants?.map((a) => {
-              const u = Array.isArray(a.users) ? a.users[0] : a.users;
+              const u = firstOf(a.users);
               return (
                 <div key={a.id} className="border rounded-lg p-3">
                   <div className="font-medium">{u?.name ?? "Freelancer"}</div>
