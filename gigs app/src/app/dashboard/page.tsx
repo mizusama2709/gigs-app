@@ -2,7 +2,7 @@ import Link from "next/link";
 import { auth, signOut } from "@/auth";
 import { redirect } from "next/navigation";
 import { supabase } from "@/lib/supabase";
-import { firstOf } from "@/lib/format";
+import { firstOf, statusColor } from "@/lib/format";
 
 type Application = {
   id: string;
@@ -57,29 +57,62 @@ export default async function DashboardPage() {
     bookings = bookingsData;
   }
 
+  const firstName = session.user.name?.split(" ")[0] ?? session.user.name;
+
   return (
     <main className="max-w-sm mx-auto p-4">
-      <h1 className="text-xl font-semibold mb-4">
-        Welcome, {session.user.name} ({session.user.role})
-      </h1>
+      <div className="mb-5">
+        <h1 className="text-2xl font-semibold mb-1">Hey, {firstName}</h1>
+        <p className="text-sm text-gray-500">
+          {isFreelancer
+            ? "Here's what's happening with your gigs."
+            : "Here's what's happening with your jobs."}
+        </p>
+      </div>
 
-      {isFreelancer && (
-        <>
-          <div className="flex flex-col gap-3 mb-6">
+      <div className="flex gap-2 overflow-x-auto pb-2 mb-6 -mx-4 px-4">
+        {isFreelancer && (
+          <>
             <Link
               href="/profile/edit"
-              className="border rounded-lg p-2 min-h-[44px] flex items-center justify-center"
+              className="shrink-0 rounded-full bg-gray-100 dark:bg-neutral-800 px-4 min-h-[44px] flex items-center text-sm font-medium"
             >
               Edit profile
             </Link>
             <Link
               href={`/freelancer/${session.user.id}`}
-              className="border rounded-lg p-2 min-h-[44px] flex items-center justify-center"
+              className="shrink-0 rounded-full bg-gray-100 dark:bg-neutral-800 px-4 min-h-[44px] flex items-center text-sm font-medium"
             >
               My gigs
             </Link>
-          </div>
+            <Link
+              href="/gigs/new"
+              className="shrink-0 rounded-full bg-accent text-accent-foreground px-4 min-h-[44px] flex items-center text-sm font-medium"
+            >
+              List a gig
+            </Link>
+          </>
+        )}
+        {isClient && (
+          <>
+            <Link
+              href="/jobs/new"
+              className="shrink-0 rounded-full bg-accent text-accent-foreground px-4 min-h-[44px] flex items-center text-sm font-medium"
+            >
+              Post a job
+            </Link>
+            <Link
+              href="/explore"
+              className="shrink-0 rounded-full bg-gray-100 dark:bg-neutral-800 px-4 min-h-[44px] flex items-center text-sm font-medium"
+            >
+              Explore freelancers
+            </Link>
+          </>
+        )}
+      </div>
 
+      {isFreelancer && (
+        <>
           <h2 className="font-medium mb-2">My applications</h2>
           <div className="flex flex-col gap-3 mb-6">
             {applications?.map((app) => {
@@ -89,11 +122,15 @@ export default async function DashboardPage() {
                 <Link
                   key={app.id}
                   href={`/jobs/${job.id}`}
-                  className="border rounded-lg p-3 min-h-[44px]"
+                  className="rounded-xl shadow-sm bg-surface p-3 flex justify-between items-center gap-2"
                 >
-                  <div className="font-medium">{job.title}</div>
-                  <div className="text-sm text-gray-500 capitalize">{job.category}</div>
-                  <div className="text-sm text-gray-500 capitalize">{app.status}</div>
+                  <div className="min-w-0">
+                    <div className="font-medium truncate">{job.title}</div>
+                    <div className="text-sm text-gray-500 capitalize">{job.category}</div>
+                  </div>
+                  <span className={`shrink-0 text-xs font-medium px-2 py-0.5 rounded-full capitalize ${statusColor(app.status)}`}>
+                    {app.status}
+                  </span>
                 </Link>
               );
             })}
@@ -112,10 +149,12 @@ export default async function DashboardPage() {
               <Link
                 key={job.id}
                 href={`/jobs/${job.id}`}
-                className="border rounded-lg p-3 min-h-[44px]"
+                className="rounded-xl shadow-sm bg-surface p-3 flex justify-between items-center gap-2"
               >
-                <div className="font-medium">{job.title}</div>
-                <div className="text-sm text-gray-500 capitalize">{job.status}</div>
+                <div className="font-medium truncate">{job.title}</div>
+                <span className={`shrink-0 text-xs font-medium px-2 py-0.5 rounded-full capitalize ${statusColor(job.status)}`}>
+                  {job.status}
+                </span>
               </Link>
             ))}
             {postedJobs?.length === 0 && (
@@ -133,13 +172,17 @@ export default async function DashboardPage() {
                 <Link
                   key={booking.id}
                   href={`/gigs/${gig.id}`}
-                  className="border rounded-lg p-3 min-h-[44px]"
+                  className="rounded-xl shadow-sm bg-surface p-3 flex justify-between items-center gap-2"
                 >
-                  <div className="font-medium">{gig.title}</div>
-                  {freelancer && (
-                    <div className="text-sm text-gray-500">{freelancer.name}</div>
-                  )}
-                  <div className="text-sm text-gray-500 capitalize">{booking.status}</div>
+                  <div className="min-w-0">
+                    <div className="font-medium truncate">{gig.title}</div>
+                    {freelancer && (
+                      <div className="text-sm text-gray-500 truncate">{freelancer.name}</div>
+                    )}
+                  </div>
+                  <span className={`shrink-0 text-xs font-medium px-2 py-0.5 rounded-full capitalize ${statusColor(booking.status)}`}>
+                    {booking.status}
+                  </span>
                 </Link>
               );
             })}
@@ -156,7 +199,7 @@ export default async function DashboardPage() {
           await signOut({ redirectTo: "/" });
         }}
       >
-        <button type="submit" className="border p-2 min-h-[44px] w-full">
+        <button type="submit" className="bg-gray-100 dark:bg-neutral-800 rounded-xl p-2 min-h-[44px] w-full text-sm font-medium">
           Log out
         </button>
       </form>
