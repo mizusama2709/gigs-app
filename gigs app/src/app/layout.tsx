@@ -24,7 +24,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col pb-14">
+      <body className="min-h-full flex flex-col pb-16 bg-background text-foreground">
         {children}
         <BottomNav />
       </body>
