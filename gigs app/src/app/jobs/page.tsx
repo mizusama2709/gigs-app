@@ -35,7 +35,7 @@ export default async function JobsPage({
         <h1 className="text-xl font-semibold">Jobs</h1>
         <Link
           href="/jobs/new"
-          className="text-sm border rounded-lg px-3 min-h-[44px] flex items-center"
+          className="text-sm bg-accent text-accent-foreground rounded-full px-4 min-h-[44px] flex items-center font-medium"
         >
           Post a job
         </Link>
@@ -44,8 +44,8 @@ export default async function JobsPage({
       <div className="flex gap-2 overflow-x-auto pb-2 mb-4 -mx-4 px-4">
         <Link
           href="/jobs"
-          className={`shrink-0 rounded-full border px-3 min-h-[44px] flex items-center text-sm ${
-            !category ? "font-semibold" : "text-gray-500"
+          className={`shrink-0 rounded-full px-4 min-h-[44px] flex items-center text-sm font-medium ${
+            !category ? "bg-accent text-accent-foreground" : "bg-gray-100 text-gray-600 dark:bg-neutral-800 dark:text-gray-400"
           }`}
         >
           All
@@ -54,8 +54,8 @@ export default async function JobsPage({
           <Link
             key={c}
             href={`/jobs?category=${c}`}
-            className={`shrink-0 rounded-full border px-3 min-h-[44px] flex items-center text-sm capitalize ${
-              category === c ? "font-semibold" : "text-gray-500"
+            className={`shrink-0 rounded-full px-4 min-h-[44px] flex items-center text-sm font-medium capitalize ${
+              category === c ? "bg-accent text-accent-foreground" : "bg-gray-100 text-gray-600 dark:bg-neutral-800 dark:text-gray-400"
             }`}
           >
             {c}
@@ -68,10 +68,12 @@ export default async function JobsPage({
           <Link
             key={job.id}
             href={`/jobs/${job.id}`}
-            className="border rounded-lg p-3 min-h-[44px]"
+            className="rounded-xl shadow-sm bg-surface p-4"
           >
-            <div className="font-medium">{job.title}</div>
-            <div className="text-sm text-gray-500 capitalize">{job.category}</div>
+            <div className="font-medium mb-1">{job.title}</div>
+            <span className="inline-block rounded-full bg-accent/10 text-accent text-xs font-medium px-2 py-0.5 capitalize mb-2">
+              {job.category}
+            </span>
             <div className="text-sm text-gray-500">
               {[budgetLabel(job), job.timeline].filter(Boolean).join(" · ")}
             </div>
