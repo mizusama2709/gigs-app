@@ -1,20 +1,23 @@
 import Link from "next/link";
-import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { CATEGORIES } from "@/lib/categories";
 import { firstOf } from "@/lib/format";
 
 type FreelancerRow = {
   user_id: string;
-  bio: string | null;
   categories: string[];
   location: string | null;
   avatar_url: string | null;
+  portfolio_links: string[];
   users: { name: string } | { name: string }[] | null;
 };
 
 function nameOf(row: FreelancerRow) {
   return firstOf(row.users)?.name ?? "Freelancer";
+}
+
+function coverImage(row: FreelancerRow) {
+  return row.portfolio_links?.[0] ?? row.avatar_url ?? null;
 }
 
 export default async function ExplorePage({
@@ -26,7 +29,7 @@ export default async function ExplorePage({
 
   let query = supabase
     .from("freelancer_profiles")
-    .select("user_id, bio, categories, location, avatar_url, users(name)");
+    .select("user_id, categories, location, avatar_url, portfolio_links, users(name)");
 
   if (category) query = query.contains("categories", [category]);
 
@@ -39,8 +42,8 @@ export default async function ExplorePage({
       <div className="flex gap-2 overflow-x-auto pb-2 mb-4 -mx-4 px-4">
         <Link
           href="/explore"
-          className={`shrink-0 rounded-full border px-3 min-h-[44px] flex items-center text-sm ${
-            !category ? "font-semibold" : "text-gray-500"
+          className={`shrink-0 rounded-full px-4 min-h-[44px] flex items-center text-sm font-medium ${
+            !category ? "bg-accent text-accent-foreground" : "bg-gray-100 text-gray-600 dark:bg-neutral-800 dark:text-gray-400"
           }`}
         >
           All
@@ -49,8 +52,8 @@ export default async function ExplorePage({
           <Link
             key={c}
             href={`/explore?category=${c}`}
-            className={`shrink-0 rounded-full border px-3 min-h-[44px] flex items-center text-sm capitalize ${
-              category === c ? "font-semibold" : "text-gray-500"
+            className={`shrink-0 rounded-full px-4 min-h-[44px] flex items-center text-sm font-medium capitalize ${
+              category === c ? "bg-accent text-accent-foreground" : "bg-gray-100 text-gray-600 dark:bg-neutral-800 dark:text-gray-400"
             }`}
           >
             {c}
@@ -58,39 +61,34 @@ export default async function ExplorePage({
         ))}
       </div>
 
-      <div className="flex flex-col gap-3">
-        {(freelancers as FreelancerRow[] | null)?.map((f) => (
-          <Link
-            key={f.user_id}
-            href={`/freelancer/${f.user_id}`}
-            className="border rounded-lg p-3 flex gap-3 items-center"
-          >
-            {f.avatar_url ? (
-              <Image
-                src={f.avatar_url}
-                alt={nameOf(f)}
-                width={56}
-                height={56}
-                className="rounded-full object-cover w-14 h-14 shrink-0"
-              />
-            ) : (
-              <div className="w-14 h-14 rounded-full bg-gray-200 shrink-0" />
-            )}
-            <div className="min-w-0">
-              <div className="font-medium">{nameOf(f)}</div>
-              {f.location && <div className="text-sm text-gray-500">{f.location}</div>}
-              {f.categories?.length > 0 && (
-                <div className="text-sm text-gray-500 truncate capitalize">
-                  {f.categories.join(", ")}
+      <div className="columns-2 gap-3">
+        {(freelancers as FreelancerRow[] | null)?.map((f) => {
+          const image = coverImage(f);
+          return (
+            <Link
+              key={f.user_id}
+              href={`/freelancer/${f.user_id}`}
+              className="block break-inside-avoid mb-3 relative rounded-xl overflow-hidden shadow-sm bg-gray-100 dark:bg-neutral-800"
+            >
+              {image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={image} alt={nameOf(f)} loading="lazy" className="w-full h-auto block" />
+              ) : (
+                <div className="w-full aspect-square flex items-center justify-center text-3xl font-semibold text-gray-400">
+                  {nameOf(f).charAt(0).toUpperCase()}
                 </div>
               )}
-            </div>
-          </Link>
-        ))}
-        {freelancers?.length === 0 && (
-          <p className="text-sm text-gray-500">No freelancers yet in this category.</p>
-        )}
+              <div className="absolute inset-x-0 bottom-0 p-3 pt-8 bg-gradient-to-t from-black/70 to-transparent">
+                <div className="text-white text-sm font-medium truncate">{nameOf(f)}</div>
+                {f.location && <div className="text-white/80 text-xs truncate">{f.location}</div>}
+              </div>
+            </Link>
+          );
+        })}
       </div>
+      {freelancers?.length === 0 && (
+        <p className="text-sm text-gray-500">No freelancers yet in this category.</p>
+      )}
     </main>
   );
 }
