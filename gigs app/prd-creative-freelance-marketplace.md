@@ -1,7 +1,7 @@
 # PRD: Creative Freelance Marketplace (Hyderabad) — v1
 
 **Status:** Draft — not yet build-ready, open questions below
-**Working name:** TBD
+**Working name:** Grid
 
 ---
 
@@ -51,7 +51,6 @@ Photographers, cinematographers, and other creative freelancers in Hyderabad don
 
 ## Open questions (resolve before build starts)
 
-- Working name for the project
 - Should the Explore page be public (SEO/discovery value, but exposes freelancer info to anyone) or gated behind login?
 
 **Deliberately deferred:** Monetization model (commission, subscription, job-posting fee) — not in scope for v1 since there's no in-app payment handling yet, so it doesn't block the schema. Revisit once there's real usage to monetize.

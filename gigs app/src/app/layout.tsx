@@ -16,7 +16,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Hyderabad Freelance Marketplace",
+  title: "Grid",
   description: "Book and hire local creative freelancers in Hyderabad.",
 };
 

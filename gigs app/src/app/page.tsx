@@ -13,7 +13,7 @@ export default function Home() {
       </div>
 
       <h1 className="font-display text-[28px] font-bold leading-tight tracking-tight mb-1.5">
-        Hyderabad Freelance Marketplace
+        Grid
       </h1>
       <p className="text-[13.5px] text-muted mb-7">
         Find local creative talent, or book your next gig.
