@@ -4,11 +4,13 @@ export default function Home() {
   return (
     <main className="max-w-sm sm:max-w-md mx-auto p-6 pt-10">
       <div className="w-14 h-14 bg-accent border-[3.5px] border-ink rounded-2xl shadow-[4px_4px_0_var(--ink)] flex items-center justify-center mb-5">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" strokeWidth="2.4">
-          <rect x="3" y="3" width="7" height="7" rx="1.5" />
-          <rect x="14" y="3" width="7" height="7" rx="1.5" />
-          <rect x="3" y="14" width="7" height="7" rx="1.5" />
-          <rect x="14" y="14" width="7" height="7" rx="1.5" />
+        <svg width="30" height="30" viewBox="0 0 56 56">
+          <rect x="4" y="4" width="48" height="48" rx="6" fill="none" stroke="var(--ink)" strokeWidth="3" />
+          <line x1="4" y1="20.6" x2="52" y2="20.6" stroke="var(--ink)" strokeWidth="1.6" />
+          <line x1="4" y1="37.3" x2="52" y2="37.3" stroke="var(--ink)" strokeWidth="1.6" />
+          <line x1="20.6" y1="4" x2="20.6" y2="52" stroke="var(--ink)" strokeWidth="1.6" />
+          <line x1="37.3" y1="4" x2="37.3" y2="52" stroke="var(--ink)" strokeWidth="1.6" />
+          <circle cx="37.3" cy="20.6" r="4" fill="var(--ink)" />
         </svg>
       </div>
 
