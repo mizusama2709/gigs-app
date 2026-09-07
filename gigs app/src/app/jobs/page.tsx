@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
-import { CATEGORIES } from "@/lib/categories";
+import { CATEGORIES, categoryColor } from "@/lib/categories";
 import { budgetLabel } from "@/lib/format";
+import { BrutalCard, CategoryBadge } from "@/components/BrutalCard";
 
 type JobRow = {
   id: string;
@@ -30,22 +31,25 @@ export default async function JobsPage({
   const { data: jobs } = await query;
 
   return (
-    <main className="max-w-md mx-auto p-4">
+    <main className="max-w-md mx-auto p-4 pt-6">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-xl font-semibold">Jobs</h1>
+        <h1 className="font-display text-[28px] font-bold tracking-tight leading-none">Jobs</h1>
         <Link
           href="/jobs/new"
-          className="text-sm bg-accent text-accent-foreground rounded-full px-4 min-h-[44px] flex items-center font-medium"
+          className="flex items-center gap-1.5 bg-accent border-[3px] border-ink rounded-full px-3.5 min-h-[40px] shadow-[3px_3px_0_var(--ink)] font-display text-xs font-bold"
         >
-          Post a job
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" strokeWidth="3">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          Post
         </Link>
       </div>
 
-      <div className="flex gap-2 overflow-x-auto pb-2 mb-4 -mx-4 px-4">
+      <div className="flex gap-2 overflow-x-auto pb-1 mb-4 -mx-4 px-4">
         <Link
           href="/jobs"
-          className={`shrink-0 rounded-full px-4 min-h-[44px] flex items-center text-sm font-medium ${
-            !category ? "bg-accent text-accent-foreground" : "bg-gray-100 text-gray-600 dark:bg-neutral-800 dark:text-gray-400"
+          className={`shrink-0 rounded-full px-4 min-h-[40px] flex items-center font-display text-xs font-bold border-[3px] border-ink ${
+            !category ? "bg-ink text-surface" : "bg-surface text-ink"
           }`}
         >
           All
@@ -54,8 +58,8 @@ export default async function JobsPage({
           <Link
             key={c}
             href={`/jobs?category=${c}`}
-            className={`shrink-0 rounded-full px-4 min-h-[44px] flex items-center text-sm font-medium capitalize ${
-              category === c ? "bg-accent text-accent-foreground" : "bg-gray-100 text-gray-600 dark:bg-neutral-800 dark:text-gray-400"
+            className={`shrink-0 rounded-full px-4 min-h-[40px] flex items-center font-display text-xs font-bold capitalize border-[3px] border-ink ${
+              category === c ? "bg-ink text-surface" : "bg-surface text-ink"
             }`}
           >
             {c}
@@ -63,24 +67,21 @@ export default async function JobsPage({
         ))}
       </div>
 
-      <div className="flex flex-col gap-3">
-        {(jobs as JobRow[] | null)?.map((job) => (
-          <Link
-            key={job.id}
-            href={`/jobs/${job.id}`}
-            className="rounded-xl shadow-sm bg-surface p-4"
-          >
-            <div className="font-medium mb-1">{job.title}</div>
-            <span className="inline-block rounded-full bg-accent/10 text-accent text-xs font-medium px-2 py-0.5 capitalize mb-2">
-              {job.category}
-            </span>
-            <div className="text-sm text-gray-500">
-              {[budgetLabel(job), job.timeline].filter(Boolean).join(" · ")}
-            </div>
-          </Link>
-        ))}
+      <div className="flex flex-col gap-3.5">
+        {(jobs as JobRow[] | null)?.map((job) => {
+          const color = categoryColor(job.category);
+          return (
+            <BrutalCard key={job.id} href={`/jobs/${job.id}`} tabColor={color.bg} tabWidth={110} className="p-3.5">
+              <div className="font-display font-bold text-[14.5px] mb-1.5">{job.title}</div>
+              <CategoryBadge category={job.category} bg={color.bg} text={color.text} className="mb-2" />
+              <div className="text-xs text-muted">
+                {[budgetLabel(job), job.timeline].filter(Boolean).join(" · ")}
+              </div>
+            </BrutalCard>
+          );
+        })}
         {jobs?.length === 0 && (
-          <p className="text-sm text-gray-500">No open jobs in this category.</p>
+          <p className="text-sm text-muted">No open jobs in this category.</p>
         )}
       </div>
     </main>
