@@ -32,3 +32,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Fixed BottomNav (~58px) can cover the last on-screen element before a
+   short page has scrolled all the way down, so default "scroll into view"
+   leaves it hidden underneath. Reserve extra scroll margin on submit
+   buttons so they always land above the nav. */
+button[type="submit"] {
+  scroll-margin-bottom: 5rem;
+}
