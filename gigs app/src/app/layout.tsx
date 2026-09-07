@@ -26,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col pb-16 bg-background text-foreground font-sans">
+      <body className="min-h-full flex flex-col pb-16 lg:pb-0 lg:pl-24 bg-background text-foreground font-sans">
         {children}
         <BottomNav />
       </body>

@@ -130,7 +130,7 @@ export default async function FreelancerProfilePage({
       </div>
 
       {!isOwner && (
-        <div className="fixed inset-x-0 bottom-16 z-10 p-3.5 bg-surface border-t-[3.5px] border-ink">
+        <div className="fixed inset-x-0 bottom-16 lg:bottom-0 lg:left-24 z-10 p-3.5 bg-surface border-t-[3.5px] border-ink">
           <a
             href={`mailto:${email ?? ""}?subject=Booking inquiry for ${name}`}
             className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto block text-center bg-accent border-[3.5px] border-ink rounded-2xl shadow-[5px_5px_0_var(--ink)] min-h-[52px] flex items-center justify-center font-display font-bold text-[15px]"

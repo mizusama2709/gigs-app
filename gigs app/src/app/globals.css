@@ -22,17 +22,39 @@
   --font-display: var(--font-space-grotesk);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
 }
 
-a {
-  color: var(--ink);
-  text-decoration: none;
+@layer base {
+  a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  a:hover {
+    color: #4C6EF5;
+  }
 }
-a:hover {
-  color: #4C6EF5;
+
+/* Brutalist press feedback: interactive elements nudge into their hard
+   offset shadow on press, instead of sitting static. */
+a,
+button {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+a:active,
+button:active {
+  transform: translate(2px, 2px);
 }
 
 /* Fixed BottomNav (~58px) can cover the last on-screen element before a

@@ -162,7 +162,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
       )}
 
       {showApplyBar && (
-        <div className="fixed inset-x-0 bottom-16 z-10 p-3.5 bg-surface border-t-[3.5px] border-ink">
+        <div className="fixed inset-x-0 bottom-16 lg:bottom-0 lg:left-24 z-10 p-3.5 bg-surface border-t-[3.5px] border-ink">
           <button
             type="submit"
             form="apply-form"
