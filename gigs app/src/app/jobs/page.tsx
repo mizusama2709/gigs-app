@@ -31,7 +31,7 @@ export default async function JobsPage({
   const { data: jobs } = await query;
 
   return (
-    <main className="max-w-md mx-auto p-4 pt-6">
+    <main className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto p-4 pt-6">
       <div className="flex items-center justify-between mb-4">
         <h1 className="font-display text-[28px] font-bold tracking-tight leading-none">Jobs</h1>
         <Link

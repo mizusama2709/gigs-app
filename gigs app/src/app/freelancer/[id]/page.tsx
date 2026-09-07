@@ -45,9 +45,9 @@ export default async function FreelancerProfilePage({
   );
 
   return (
-    <main className={`max-w-md mx-auto p-4 pt-6 ${!isOwner ? "pb-28" : ""}`}>
+    <main className={`max-w-md sm:max-w-xl lg:max-w-3xl mx-auto p-4 pt-6 ${!isOwner ? "pb-28" : ""}`}>
       {profile.portfolio_links?.length > 0 && (
-        <div className="grid grid-cols-2 gap-2 mb-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 mb-5">
           {profile.portfolio_links.map((url: string) => (
             <div key={url} className="relative aspect-square rounded-xl overflow-hidden border-[3px] border-ink bg-background">
               <Image src={url} alt="Portfolio item" fill className="object-cover" />
@@ -133,7 +133,7 @@ export default async function FreelancerProfilePage({
         <div className="fixed inset-x-0 bottom-16 z-10 p-3.5 bg-surface border-t-[3.5px] border-ink">
           <a
             href={`mailto:${email ?? ""}?subject=Booking inquiry for ${name}`}
-            className="max-w-md mx-auto block text-center bg-accent border-[3.5px] border-ink rounded-2xl shadow-[5px_5px_0_var(--ink)] min-h-[52px] flex items-center justify-center font-display font-bold text-[15px]"
+            className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto block text-center bg-accent border-[3.5px] border-ink rounded-2xl shadow-[5px_5px_0_var(--ink)] min-h-[52px] flex items-center justify-center font-display font-bold text-[15px]"
           >
             Contact{minRate != null ? ` · from ₹${minRate}` : ""}
           </a>

@@ -16,7 +16,7 @@ export default async function EditProfilePage() {
     .single();
 
   return (
-    <main className="max-w-md mx-auto p-4">
+    <main className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto p-4">
       <h1 className="text-xl font-semibold mb-4">Edit profile</h1>
       <form action={updateProfile} className="flex flex-col gap-4">
         <label className="flex flex-col gap-1">

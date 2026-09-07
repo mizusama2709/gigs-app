@@ -9,7 +9,7 @@ export default async function NewJobPage() {
   if (session.user.role !== "client") redirect("/jobs");
 
   return (
-    <main className="max-w-md mx-auto p-4">
+    <main className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto p-4">
       <h1 className="text-xl font-semibold mb-4">Post a job</h1>
       <form action={postJob} className="flex flex-col gap-3">
         <input

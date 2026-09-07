@@ -49,7 +49,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
   const showApplyBar = isFreelancer && !myApplication;
 
   return (
-    <main className={`max-w-md mx-auto p-4 pt-6 ${showApplyBar ? "pb-28" : ""}`}>
+    <main className={`max-w-md sm:max-w-xl lg:max-w-3xl mx-auto p-4 pt-6 ${showApplyBar ? "pb-28" : ""}`}>
       <div className="flex items-center justify-between mb-4">
         <BackButton />
         <CategoryBadge category={job.category} bg={color.bg} text={color.text} />
@@ -166,7 +166,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ id: 
           <button
             type="submit"
             form="apply-form"
-            className="max-w-md mx-auto block w-full bg-accent border-[3.5px] border-ink rounded-2xl shadow-[5px_5px_0_var(--ink)] min-h-[52px] font-display font-bold text-[15px]"
+            className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto block w-full bg-accent border-[3.5px] border-ink rounded-2xl shadow-[5px_5px_0_var(--ink)] min-h-[52px] font-display font-bold text-[15px]"
           >
             Apply to this job
           </button>

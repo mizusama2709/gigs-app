@@ -37,7 +37,7 @@ export default async function ExplorePage({
   const { data: freelancers } = await query;
 
   return (
-    <main className="max-w-md mx-auto p-4 pt-6">
+    <main className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto p-4 pt-6">
       <h1 className="font-display text-[28px] font-bold tracking-tight leading-none">Explore</h1>
       <p className="text-[13px] text-muted mt-1 mb-4">Creative freelancers in Hyderabad</p>
 
@@ -63,7 +63,7 @@ export default async function ExplorePage({
         ))}
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
         {(freelancers as FreelancerRow[] | null)?.map((f) => {
           const image = coverImage(f);
           const color = categoryColor(f.categories?.[0]);

@@ -19,7 +19,7 @@ export default async function EditGigPage({ params }: { params: Promise<{ id: st
   if (gig.freelancer_id !== session.user.id) redirect(`/gigs/${id}`);
 
   return (
-    <main className="max-w-md mx-auto p-4">
+    <main className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto p-4">
       <h1 className="text-xl font-semibold mb-4">Edit gig</h1>
       <form action={updateGig.bind(null, gig.id)} className="flex flex-col gap-3">
         <input

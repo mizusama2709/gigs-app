@@ -53,7 +53,7 @@ export default async function GigDetailPage({ params }: { params: Promise<{ id: 
   const showBookBar = isClient && !myBooking;
 
   return (
-    <main className={`max-w-md mx-auto p-4 pt-6 ${showBookBar ? "pb-28" : ""}`}>
+    <main className={`max-w-md sm:max-w-xl lg:max-w-3xl mx-auto p-4 pt-6 ${showBookBar ? "pb-28" : ""}`}>
       <CategoryBadge category={gig.category} bg={color.bg} text={color.text} className="mb-3" />
       <h1 className="font-display text-[22px] font-bold leading-tight mb-2">{gig.title}</h1>
       <div className="font-display text-[19px] font-bold mb-4">{rateLabel(gig)}</div>
@@ -121,7 +121,7 @@ export default async function GigDetailPage({ params }: { params: Promise<{ id: 
           <button
             type="submit"
             form="book-form"
-            className="max-w-md mx-auto block w-full bg-accent border-[3.5px] border-ink rounded-2xl shadow-[5px_5px_0_var(--ink)] min-h-[52px] font-display font-bold text-[15px]"
+            className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto block w-full bg-accent border-[3.5px] border-ink rounded-2xl shadow-[5px_5px_0_var(--ink)] min-h-[52px] font-display font-bold text-[15px]"
           >
             Request booking
           </button>

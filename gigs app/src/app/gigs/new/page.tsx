@@ -9,7 +9,7 @@ export default async function NewGigPage() {
   if (session.user.role !== "freelancer") redirect("/explore");
 
   return (
-    <main className="max-w-md mx-auto p-4">
+    <main className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto p-4">
       <h1 className="text-xl font-semibold mb-4">List a gig</h1>
       <form action={createGig} className="flex flex-col gap-3">
         <input

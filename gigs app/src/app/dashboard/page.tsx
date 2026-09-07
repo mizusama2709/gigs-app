@@ -61,7 +61,7 @@ export default async function DashboardPage() {
   const firstName = session.user.name?.split(" ")[0] ?? session.user.name;
 
   return (
-    <main className="max-w-sm mx-auto p-4 pt-6 pb-8">
+    <main className="max-w-sm sm:max-w-lg lg:max-w-2xl mx-auto p-4 pt-6 pb-8">
       <div className="mb-5">
         <h1 className="font-display text-[24px] font-bold tracking-tight">Hey, {firstName}</h1>
         <p className="text-[12.5px] text-muted mt-0.5">
