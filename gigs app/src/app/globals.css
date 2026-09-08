@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F4EFE2;
-  --foreground: #15140F;
-  --surface: #FFFDF7;
-  --ink: #15140F;
-  --muted: #8A8574;
-  --accent: #FFC629;
-  --accent-foreground: #15140F;
+  --background: #F7F4EC;
+  --foreground: #141414;
+  --surface: #FFFFFF;
+  --ink: #141414;
+  --muted: #5A5142;
+  --accent: #C9A227;
+  --accent-foreground: #141414;
 }
 
 @theme inline {
@@ -18,8 +18,9 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-geist);
+  --font-display: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
 }
 
 html {
@@ -46,15 +47,14 @@ body {
   }
 }
 
-/* Brutalist press feedback: interactive elements nudge into their hard
-   offset shadow on press, instead of sitting static. */
+/* Flat press feedback: a soft opacity dip instead of a hard-shadow nudge. */
 a,
 button {
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  transition: opacity 0.12s ease, background-color 0.12s ease;
 }
 a:active,
 button:active {
-  transform: translate(2px, 2px);
+  opacity: 0.7;
 }
 
 /* Fixed BottomNav (~58px) can cover the last on-screen element before a

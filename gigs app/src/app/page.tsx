@@ -1,42 +1,46 @@
 import Link from "next/link";
+import { GridMark } from "@/components/GridMark";
 
 export default function Home() {
   return (
     <main className="max-w-sm sm:max-w-md mx-auto p-6 pt-10">
-      <div className="w-14 h-14 bg-accent border-[3.5px] border-ink rounded-2xl shadow-[4px_4px_0_var(--ink)] flex items-center justify-center mb-5">
-        <svg width="30" height="30" viewBox="0 0 56 56">
-          <rect x="4" y="4" width="48" height="48" rx="6" fill="none" stroke="var(--ink)" strokeWidth="3" />
-          <line x1="4" y1="20.6" x2="52" y2="20.6" stroke="var(--ink)" strokeWidth="1.6" />
-          <line x1="4" y1="37.3" x2="52" y2="37.3" stroke="var(--ink)" strokeWidth="1.6" />
-          <line x1="20.6" y1="4" x2="20.6" y2="52" stroke="var(--ink)" strokeWidth="1.6" />
-          <line x1="37.3" y1="4" x2="37.3" y2="52" stroke="var(--ink)" strokeWidth="1.6" />
-          <circle cx="37.3" cy="20.6" r="4" fill="var(--ink)" />
+      <div
+        className="relative overflow-hidden rounded-2xl px-7 py-10 mb-7"
+        style={{ background: "linear-gradient(135deg, #141414, #3a3226)" }}
+      >
+        <svg className="absolute inset-0 w-full h-full opacity-60" preserveAspectRatio="none">
+          <defs>
+            <pattern id="grid-dots" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="1.2" cy="1.2" r="1.4" fill="rgba(201,162,39,.4)" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid-dots)" />
         </svg>
+        <div className="relative flex flex-col items-center text-center gap-3">
+          <GridMark size={44} stroke="#C9A227" />
+          <div className="text-[30px] font-bold tracking-tight text-[#F7F4EC]">Grid</div>
+          <p className="text-[13.5px] text-[#F7F4EC]/70">
+            Find local creative talent, or book your next gig in Hyderabad.
+          </p>
+        </div>
       </div>
-
-      <h1 className="font-display text-[28px] font-bold leading-tight tracking-tight mb-1.5">
-        Grid
-      </h1>
-      <p className="text-[13.5px] text-muted mb-7">
-        Find local creative talent, or book your next gig.
-      </p>
 
       <div className="flex flex-col gap-3">
         <Link
           href="/signup"
-          className="bg-accent border-[3.5px] border-ink rounded-full shadow-[5px_5px_0_var(--ink)] min-h-[54px] flex items-center justify-center font-display font-bold text-[15px]"
+          className="bg-accent text-accent-foreground rounded-full min-h-[54px] flex items-center justify-center font-semibold text-[15px]"
         >
           Sign up
         </Link>
         <Link
           href="/login"
-          className="bg-surface border-[3px] border-ink rounded-full min-h-[50px] flex items-center justify-center font-display font-bold text-[14px]"
+          className="bg-surface border border-ink/15 rounded-full min-h-[50px] flex items-center justify-center font-semibold text-[14px]"
         >
           Log in
         </Link>
         <Link
           href="/explore"
-          className="text-center font-display font-semibold text-[13px] text-ink/70 mt-1"
+          className="text-center font-semibold text-[13px] text-ink/70 mt-1"
         >
           Explore freelancers →
         </Link>

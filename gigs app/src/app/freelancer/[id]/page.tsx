@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { supabase } from "@/lib/supabase";
 import { firstOf } from "@/lib/format";
 import { categoryColor } from "@/lib/categories";
-import { BrutalCard, CategoryBadge } from "@/components/BrutalCard";
+import { Card, CategoryBadge } from "@/components/Card";
 import { deleteGig } from "@/app/gigs/[id]/actions";
 
 function rateLabel(gig: { rate: number; rate_type: string }) {
@@ -49,7 +49,7 @@ export default async function FreelancerProfilePage({
       {profile.portfolio_links?.length > 0 && (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 mb-5">
           {profile.portfolio_links.map((url: string) => (
-            <div key={url} className="relative aspect-square rounded-xl overflow-hidden border-[3px] border-ink bg-background">
+            <div key={url} className="relative aspect-square rounded-xl overflow-hidden border border-ink/10 bg-background">
               <Image src={url} alt="Portfolio item" fill className="object-cover" />
             </div>
           ))}
@@ -63,15 +63,15 @@ export default async function FreelancerProfilePage({
             alt={name}
             width={60}
             height={60}
-            className="rounded-full object-cover w-[60px] h-[60px] shrink-0 border-[3px] border-ink"
+            className="rounded-full object-cover w-[60px] h-[60px] shrink-0 border border-ink/10"
           />
         ) : (
-          <div className="w-[60px] h-[60px] rounded-full bg-background border-[3px] border-ink shrink-0 flex items-center justify-center text-xl font-display font-bold text-muted">
+          <div className="w-[60px] h-[60px] rounded-full bg-background border border-ink/10 shrink-0 flex items-center justify-center text-xl font-bold text-muted">
             {name.charAt(0).toUpperCase()}
           </div>
         )}
         <div className="min-w-0">
-          <h1 className="font-display text-[21px] font-bold truncate">{name}</h1>
+          <h1 className="text-[21px] font-bold truncate">{name}</h1>
           {profile.location && <p className="text-[12.5px] text-muted">{profile.location}</p>}
         </div>
       </div>
@@ -89,11 +89,11 @@ export default async function FreelancerProfilePage({
 
       <div>
         <div className="flex items-center justify-between mb-2.5">
-          <h2 className="font-display font-bold text-[15px]">Gigs</h2>
+          <h2 className="font-semibold text-[15px]">Gigs</h2>
           {isOwner && (
             <Link
               href="/gigs/new"
-              className="text-xs font-display font-bold bg-surface border-[3px] border-ink rounded-full px-3.5 min-h-[36px] flex items-center shadow-[3px_3px_0_var(--ink)]"
+              className="text-xs font-semibold bg-surface border border-ink/15 rounded-full px-3.5 min-h-[36px] flex items-center"
             >
               Add gig
             </Link>
@@ -103,26 +103,26 @@ export default async function FreelancerProfilePage({
           {gigs?.map((gig) => {
             const color = categoryColor(gig.category);
             return (
-              <BrutalCard key={gig.id} tabColor={color.bg} tabWidth={100} className="p-3.5">
+              <Card key={gig.id} accentColor={color.bg} className="p-3.5">
                 <Link href={`/gigs/${gig.id}`} className="block">
-                  <div className="font-display font-bold text-[14px]">{gig.title}</div>
+                  <div className="font-semibold text-[14px]">{gig.title}</div>
                   <div className="text-[11.5px] text-muted capitalize my-0.5">{gig.category}</div>
-                  <div className="font-display font-bold text-[14px]">{rateLabel(gig)}</div>
+                  <div className="font-semibold text-[14px]">{rateLabel(gig)}</div>
                 </Link>
                 {isOwner && (
                   <div className="flex gap-2 mt-3">
                     <Link
                       href={`/gigs/${gig.id}/edit`}
-                      className="bg-background border-2 border-ink rounded-lg px-3 min-h-[40px] flex items-center text-xs font-display font-bold"
+                      className="bg-background border border-ink/15 rounded-lg px-3 min-h-[40px] flex items-center text-xs font-semibold"
                     >
                       Edit
                     </Link>
                     <form action={deleteGig.bind(null, gig.id)}>
-                      <button className="bg-background border-2 border-ink rounded-lg px-3 min-h-[40px] text-xs font-display font-bold">Delete</button>
+                      <button className="bg-background border border-ink/15 rounded-lg px-3 min-h-[40px] text-xs font-semibold">Delete</button>
                     </form>
                   </div>
                 )}
-              </BrutalCard>
+              </Card>
             );
           })}
           {gigs?.length === 0 && <p className="text-sm text-muted">No gigs listed yet.</p>}
@@ -130,10 +130,10 @@ export default async function FreelancerProfilePage({
       </div>
 
       {!isOwner && (
-        <div className="fixed inset-x-0 bottom-16 lg:bottom-0 lg:left-24 z-10 p-3.5 bg-surface border-t-[3.5px] border-ink">
+        <div className="fixed inset-x-0 bottom-16 lg:bottom-0 lg:left-24 z-10 p-3.5 bg-surface border-t border-ink/10">
           <a
             href={`mailto:${email ?? ""}?subject=Booking inquiry for ${name}`}
-            className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto block text-center bg-accent border-[3.5px] border-ink rounded-2xl shadow-[5px_5px_0_var(--ink)] min-h-[52px] flex items-center justify-center font-display font-bold text-[15px]"
+            className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto block text-center bg-accent text-accent-foreground rounded-2xl min-h-[52px] flex items-center justify-center font-semibold text-[15px]"
           >
             Contact{minRate != null ? ` · from ₹${minRate}` : ""}
           </a>

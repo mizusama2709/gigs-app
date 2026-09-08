@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { GridMark } from "./GridMark";
 
 const TABS = [
   {
@@ -44,15 +45,15 @@ export default function BottomNav() {
   return (
     <>
       {/* Phone: fixed bar along the bottom */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 flex bg-surface border-t-[3.5px] border-ink z-20">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 flex bg-surface border-t border-ink/10 z-20">
         {TABS.map((tab) => {
           const active = pathname === tab.href || pathname.startsWith(tab.href + "/");
           return (
             <Link
               key={tab.href}
               href={tab.href}
-              className={`flex-1 flex flex-col items-center justify-center gap-0.5 min-h-[56px] py-2 text-xs font-display ${
-                active ? "text-ink font-bold" : "text-muted font-semibold"
+              className={`flex-1 flex flex-col items-center justify-center gap-0.5 min-h-[56px] py-2 text-xs ${
+                active ? "text-ink font-semibold" : "text-muted font-medium"
               }`}
             >
               {tab.icon(active)}
@@ -63,15 +64,18 @@ export default function BottomNav() {
       </nav>
 
       {/* Laptop/desktop: fixed sidebar along the left */}
-      <nav className="hidden lg:flex fixed top-0 left-0 bottom-0 w-24 flex-col items-center gap-2 bg-surface border-r-[3.5px] border-ink z-20 pt-8">
+      <nav className="hidden lg:flex fixed top-0 left-0 bottom-0 w-24 flex-col items-center gap-2 bg-surface border-r border-ink/10 z-20 pt-6">
+        <div className="mb-4">
+          <GridMark size={30} />
+        </div>
         {TABS.map((tab) => {
           const active = pathname === tab.href || pathname.startsWith(tab.href + "/");
           return (
             <Link
               key={tab.href}
               href={tab.href}
-              className={`w-[76px] flex flex-col items-center justify-center gap-1 py-3 rounded-2xl text-xs font-display transition-colors ${
-                active ? "bg-ink text-surface font-bold" : "text-muted font-semibold hover:bg-background"
+              className={`w-[76px] flex flex-col items-center justify-center gap-1 py-3 rounded-xl text-xs transition-colors ${
+                active ? "bg-background text-ink font-semibold" : "text-muted font-medium hover:bg-background/60"
               }`}
             >
               {tab.icon(active)}

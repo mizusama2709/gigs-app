@@ -20,7 +20,7 @@ export function PasswordInput({
         type={visible ? "text" : "password"}
         required={required}
         minLength={minLength}
-        className="w-full bg-surface border-[3px] border-ink rounded-full pl-[18px] pr-11 py-[13px] shadow-[4px_4px_0_var(--ink)] text-[13.5px]"
+        className="w-full bg-surface border border-ink/15 rounded-full pl-[18px] pr-11 py-[13px] shadow-sm text-[13.5px]"
       />
       <button
         type="button"

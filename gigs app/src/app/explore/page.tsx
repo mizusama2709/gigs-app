@@ -2,7 +2,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { CATEGORIES, categoryColor } from "@/lib/categories";
 import { firstOf } from "@/lib/format";
-import { BrutalCard } from "@/components/BrutalCard";
+import { Card } from "@/components/Card";
 
 type FreelancerRow = {
   user_id: string;
@@ -38,14 +38,14 @@ export default async function ExplorePage({
 
   return (
     <main className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto p-4 pt-6">
-      <h1 className="font-display text-[28px] font-bold tracking-tight leading-none">Explore</h1>
+      <h1 className="text-[28px] font-bold tracking-tight leading-none">Explore</h1>
       <p className="text-[13px] text-muted mt-1 mb-4">Creative freelancers in Hyderabad</p>
 
       <div className="flex gap-2 overflow-x-auto pb-1 mb-4 -mx-4 px-4">
         <Link
           href="/explore"
-          className={`shrink-0 rounded-full px-4 min-h-[40px] flex items-center font-display text-xs font-bold border-[3px] border-ink ${
-            !category ? "bg-ink text-surface" : "bg-surface text-ink"
+          className={`shrink-0 rounded-full px-4 min-h-[40px] flex items-center text-xs font-semibold border border-ink/15 ${
+            !category ? "bg-ink text-surface border-ink" : "bg-surface text-ink"
           }`}
         >
           All
@@ -54,8 +54,8 @@ export default async function ExplorePage({
           <Link
             key={c}
             href={`/explore?category=${c}`}
-            className={`shrink-0 rounded-full px-4 min-h-[40px] flex items-center font-display text-xs font-bold capitalize border-[3px] border-ink ${
-              category === c ? "bg-ink text-surface" : "bg-surface text-ink"
+            className={`shrink-0 rounded-full px-4 min-h-[40px] flex items-center text-xs font-semibold capitalize border border-ink/15 ${
+              category === c ? "bg-ink text-surface border-ink" : "bg-surface text-ink"
             }`}
           >
             {c}
@@ -68,16 +68,16 @@ export default async function ExplorePage({
           const image = coverImage(f);
           const color = categoryColor(f.categories?.[0]);
           return (
-            <BrutalCard key={f.user_id} href={`/freelancer/${f.user_id}`} tabColor={color.bg} tabWidth={70} className="p-2">
+            <Card key={f.user_id} href={`/freelancer/${f.user_id}`} accentColor={color.bg} className="p-2">
               {image ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={image} alt={nameOf(f)} loading="lazy" className="w-full h-[130px] object-cover rounded-xl" />
+                <img src={image} alt={nameOf(f)} loading="lazy" className="w-full h-[130px] object-cover rounded-lg" />
               ) : (
-                <div className="w-full h-[130px] rounded-xl bg-background flex items-center justify-center text-3xl font-display font-bold text-muted">
+                <div className="w-full h-[130px] rounded-lg bg-background flex items-center justify-center text-3xl font-bold text-muted">
                   {nameOf(f).charAt(0).toUpperCase()}
                 </div>
               )}
-              <div className="font-display font-bold text-[13px] mt-2">{nameOf(f)}</div>
+              <div className="font-semibold text-[13px] mt-2">{nameOf(f)}</div>
               {f.location && (
                 <div className="flex items-center gap-1.5 mt-1">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth="2.5">
@@ -87,7 +87,7 @@ export default async function ExplorePage({
                   <span className="text-[10.5px] text-muted truncate">{f.location}</span>
                 </div>
               )}
-            </BrutalCard>
+            </Card>
           );
         })}
       </div>
