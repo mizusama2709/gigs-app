@@ -1,17 +1,52 @@
 username: mizusama2709
-updatedAt: 2026-09-14T11:04:59.715Z
+updatedAt: 2026-09-14T11:08:07.284Z
 skills:
   ponytail-review:
     count: 1
     lastUsed: 2026-09-11T21:13:11.424Z
+  statusline:
+    count: 1
+    lastUsed: 2026-09-14T11:07:11.063Z
 interventions:
-  sessions: 13
+  sessions: 15
   interrupt: 0
   toolReject: 0
   correction: 0
-prompts: 26
+prompts: 28
 tokens:
-  input: 272
-  output: 68306
-  cacheRead: 18965626
-  cacheCreation: 766057
+  input: 278
+  output: 68569
+  cacheRead: 19207914
+  cacheCreation: 829763
+daily:
+  2026-09-11:
+    sessionsEnded: 7
+    sessionsSucceeded: 7
+    promptTurns: 21
+    durationMs: 1607661
+    sessionsCorrected: 0
+    pricedRequests: 0
+    costMicros: 0
+    cacheReadTokens: 0
+    cacheEligibleInputTokens: 0
+  2026-09-12:
+    sessionsEnded: 1
+    sessionsSucceeded: 1
+    promptTurns: 5
+    durationMs: 631176
+    sessionsCorrected: 0
+    pricedRequests: 0
+    costMicros: 0
+    cacheReadTokens: 0
+    cacheEligibleInputTokens: 0
+  2026-09-14:
+    sessionsEnded: 1
+    sessionsSucceeded: 1
+    promptTurns: 2
+    durationMs: 162850
+    sessionsCorrected: 0
+    pricedRequests: 3
+    costMicros: 210365
+    cacheReadTokens: 242288
+    cacheEligibleInputTokens: 306000
+    priceVersion: anthropic-2026-09-09
